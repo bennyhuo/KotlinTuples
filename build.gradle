@@ -21,8 +21,10 @@ apply plugin: 'kotlin'
 
 sourceCompatibility = 1.8
 
-repositories {
-    maven { url "https://mirrors.tencent.com/nexus/repository/maven-public/" }
+allprojects {
+    repositories {
+        maven { url "https://mirrors.tencent.com/nexus/repository/maven-public/" }
+    }
 }
 
 dependencies {

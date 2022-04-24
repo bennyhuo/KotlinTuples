@@ -7,11 +7,8 @@ plugins {
 group = "com.bennyhuo.kotlin"
 version = "1.0"
 
-repositories {
-    mavenCentral()
-}
-
 dependencies {
+    implementation("junit:junit:4.13.1")
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.6.0")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
 }
@@ -30,8 +27,7 @@ kotlin {
         }
         val commonTest by getting {
             dependencies {
-                implementation(kotlin("test-common"))
-                implementation(kotlin("test-annotations-common"))
+                implementation(kotlin("test")) // This brings all the platform dependencies automatically
             }
         }
     }
