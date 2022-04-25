@@ -4,7 +4,7 @@
 
 Maybe you want to use a Tuple to hold the result of a function, and you don not want to write a certain data class for that, this may help.
 
-I generated 20 tuple types with `Generator.kts`, mutable and immutable. So use it like this:
+I generated 22 tuple types with `Generator.kt`, mutable and immutable. So use it like this:
 
 ```kotlin
 fun returnFourValues() = tupleOf(1,2,3,4)
