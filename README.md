@@ -15,7 +15,7 @@ val (a, b, c, d) = returnFourValues()
 You can convert the tuples to list:
 
 ```kotlin
-val typedList = tupleOf(1,2,3,4).toTypedList() // List<Int>
+val intList = tupleOf(1,2,3,4).toList() // List<Int>
 
 val list = tupleOf(1, 2.0, 3f, "hello").toList() // List<Any?>
 ```
@@ -26,12 +26,20 @@ You can also use a infix function `U` to construct a tuple conveniently:
 fun returnFourValues() = 1 U 2 U 3 U 4 // equivalent to tupleOf(1,2,3,4)
 ```
 
+You can also create a mutable tuple:
+
+```kotlin
+val mutable = mutableTupleOf(1, 2, 3, 4)
+// or
+val mutable = 1 V 2 V 3 V 4
+```
+
 ## Use in your project
 
-It has been deployed to jCenter.
+It has been deployed to Maven Central repository.
 
 ```
-compile "com.bennyhuo.kotlin:kotlin-tuples:1.0"
+implementation("com.bennyhuo.kotlin:kotlin-tuples:2.0")
 ```
 
 ## Issue
