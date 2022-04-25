@@ -16,7 +16,7 @@ data class TupleInfo(
     val builderName = prefix.replaceFirstChar { it.lowercase() } + "Of"
 
     private fun enumerate(transform: ((Int) -> CharSequence)): String {
-        return (0 until size).joinToString(transform = transform)
+        return (1 .. size).joinToString(transform = transform)
     }
 
     fun render(): String {
