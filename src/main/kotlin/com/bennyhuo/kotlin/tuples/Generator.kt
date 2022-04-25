@@ -10,7 +10,7 @@ data class TupleInfo(
     val isMutable: Boolean,
     val size: Int
 ) {
-    val connector = if (isMutable) "V" else "U"
+    val op = if (isMutable) "V" else "U"
     val prefix = if (isMutable) "MutableTuple" else "Tuple"
     val name = prefix + size
     val builderName = prefix.replaceFirstChar { it.lowercase() } + "Of"
@@ -20,7 +20,7 @@ data class TupleInfo(
     }
 
     fun render(): String {
-        val counterPart = this.copy(isMutable = !isMutable)
+        val invert = this.copy(isMutable = !isMutable)
 
         val Tn = enumerate { "T$it" }
         val val_n_type = enumerate { "${if(isMutable) "var" else "val"} _$it: T$it" }
@@ -33,12 +33,11 @@ data class TupleInfo(
             data class $name<$Tn>($val_n_type) 
             fun <$Tn> $builderName($_n_type) = $name($_n)
             fun <T> $name<$T>.toList() = listOf($_n)
-            fun <$Tn> $name<$Tn>.to${counterPart.prefix}() = ${counterPart.builderName}($_n)
+            fun <$Tn> $name<$Tn>.to${invert.prefix}() = ${invert.builderName}($_n)
             fun <$Tn> $name<$Tn>.size() = $size
             ${if (size < TUPLE_MAX_SIZE)
-            "infix fun <T, $Tn> $name<$Tn>.$connector(other: T) = $prefix${size + 1}($_n, other)"
+            "infix fun <T, $Tn> $name<$Tn>.$op(other: T) = $prefix${size + 1}($_n, other)"
             else ""}
-            
             """.trimIndent()
     }
 }
@@ -47,16 +46,16 @@ fun main() {
     val file = File(OUTPUT_PATH)
     file.parentFile.mkdirs()
     file.writer().use { writer ->
-        writer.write("package com.bennyhuo.kotlin.tuples\n\n")
+        with(writer) {
+            appendLine("package com.bennyhuo.kotlin.tuples")
+            appendLine()
+            appendLine("infix fun <R, T> R.U(other: T) = tupleOf(this, other)")
+            appendLine("infix fun <R, T> R.V(other: T) = mutableTupleOf(this, other)")
 
-        writer.write("infix fun <R, T> R.U(other: T) = tupleOf(this, other)\n")
-        writer.write("infix fun <R, T> R.V(other: T) = mutableTupleOf(this, other)\n")
-        writer.write("\n\n")
-
-        (1..TUPLE_MAX_SIZE).forEach {
-            writer.write(TupleInfo(false, it).render())
-            writer.write("\n\n")
-            writer.write(TupleInfo(true, it).render())
+            (1..TUPLE_MAX_SIZE).forEach {
+                appendLine(TupleInfo(false, it).render())
+                appendLine(TupleInfo(true, it).render())
+            }
         }
     }
 }
