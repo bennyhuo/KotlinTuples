@@ -2,7 +2,7 @@ package com.bennyhuo.kotlin.tuples
 
 import java.io.File
 
-const val OUTPUT_PATH = "tuples/src/commonMain/kotlin/com/bennyhuo/kotlin/tuples/Tuples.kt"
+const val OUTPUT_PATH = "kotlin-tuples/src/commonMain/kotlin/com/bennyhuo/kotlin/tuples/Tuples.kt"
 const val TUPLE_MAX_SIZE = 22
 const val TUPLE_NAME_PREFIX = "Tuple"
 
