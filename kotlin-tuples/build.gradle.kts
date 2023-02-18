@@ -4,8 +4,8 @@ plugins {
     id("com.vanniktech.maven.publish")
 }
 
-group = "com.bennyhuo.kotlin"
-version = "1.0"
+group = property("GROUP").toString()
+version = property("VERSION_NAME").toString()
 
 dependencies {
     implementation("junit:junit:4.13.1")

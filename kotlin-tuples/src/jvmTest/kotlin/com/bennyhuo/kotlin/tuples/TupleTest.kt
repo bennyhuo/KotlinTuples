@@ -6,9 +6,13 @@ class TupleTest {
 
     @Test
     fun test() {
+        val tuple2 = tupleOf(1, "2")
+        assert(tuple2._2 == "2")
+
         val tuple3 = 1 U 2 U 3
 
         assert(tuple3 == tupleOf(1, 2, 3))
+        assert(tuple3._1 == 1)
         assert(tuple3._3 == 3)
         assert(tuple3.toList() == listOf(1, 2, 3))
         assert(tuple3.toMutableTuple() == mutableTupleOf(1, 2, 3))
